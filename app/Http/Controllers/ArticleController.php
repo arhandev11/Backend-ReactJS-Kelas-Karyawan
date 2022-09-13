@@ -105,12 +105,12 @@ class ArticleController extends Controller
                 ], 400);
             }
             
-            $data = [
-                "judul" => $request->judul,
-                "konten" => $request->konten,
-                "highlight" => $request->highlight ?? 0,
-                "image_url" => $request->image_url,
-            ];
+        $data = [
+            "judul" => $request->judul,
+            "konten" => $request->konten,
+            "highlight" => $request->highlight ?? 0,
+            "image_url" => $request->image_url,
+        ];
             
         $check = $article->update($data);
         if($check){

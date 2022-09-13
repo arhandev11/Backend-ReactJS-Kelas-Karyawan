@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/users", [ProfileController::class, "index"]);
 Route::post("/users", [ProfileController::class, "store"]);
+Route::get("/users/{profile}", [ProfileController::class, "show"]);
+Route::put("/users/{profile}", [ProfileController::class, "update"]);
 Route::delete("/users/{profile}", [ProfileController::class, "delete"]);
 
 Route::get("/products", [ProductController::class, "index"]);
