@@ -18,18 +18,20 @@ class Product extends Model
         'stock',
     ];
 
+    protected $appends = ['harga_display', 'harga_diskon_display'];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:m:s',
         'updated_at' => 'datetime:Y-m-d H:m:s',
     ];
 
-    public function getHargaAttribute($value)
+    public function getHargaDisplayAttribute($value)
     {
-        return number_format($value, 0, ",", ".");
+        return number_format($this->harga, 0, ",", ".");
     }
 
-    public function getHargaDiskonAttribute($value)
+    public function getHargaDiskonDisplayAttribute($value)
     {
-        return number_format($value, 0, ",", ".");
+        return number_format($this->harga_diskon, 0, ",", ".");
     }
 }

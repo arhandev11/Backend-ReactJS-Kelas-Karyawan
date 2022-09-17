@@ -112,6 +112,7 @@ class ProfileController extends Controller
             "data" => $profile
         ]);
     }
+    
     public function delete(Request $request, Profile $profile)
     {
         $check = $profile->delete();

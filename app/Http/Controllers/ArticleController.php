@@ -29,7 +29,6 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-
         $rules = [
             "judul" => "required",
             "konten" => "required",
