@@ -16,6 +16,7 @@ class Product extends Model
         'is_diskon',
         'image_url',
         'stock',
+        'user_id',
     ];
 
     protected $appends = ['harga_display', 'harga_diskon_display'];
@@ -33,5 +34,10 @@ class Product extends Model
     public function getHargaDiskonDisplayAttribute($value)
     {
         return number_format($this->harga_diskon, 0, ",", ".");
+    }
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -12,7 +13,7 @@ class ProductController extends Controller
     public function index()
     {
         try{
-            $users = Product::get();
+            $users = Product::with('user')->latest()->get();
             return response()->json([
                 "code" => "00",
                 "info" => "Mengambil list product berhasil",
@@ -66,6 +67,7 @@ class ProductController extends Controller
             "is_diskon" => $request->is_diskon,
             "stock" => $request->stock,
             "image_url" => $request->image_url,
+            "user_id" => Auth::user()->id,
         ];
 
         $user = Product::create($data);
@@ -133,6 +135,7 @@ class ProductController extends Controller
             "is_diskon" => $request->is_diskon,
             "stock" => $request->stock,
             "image_url" => $request->image_url,
+            "user_id" => Auth::user()->id,
         ];
 
 
@@ -157,7 +160,7 @@ class ProductController extends Controller
         return response()->json([
             "code" => "00",
             "info" => "Mengambil Product berhasil",
-            "data" => $product
+            "data" => $product->load('user')
         ]);
     }
 }

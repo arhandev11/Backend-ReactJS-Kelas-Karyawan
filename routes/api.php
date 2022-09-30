@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
@@ -17,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::post("/login", [AuthController::class, "login"]);
+Route::post("/register", [AuthController::class, "register"]);
+Route::middleware('auth:sanctum')->get("/profile", [AuthController::class, "profile"]);
+
 Route::get("/users", [ProfileController::class, "index"]);
 Route::post("/users", [ProfileController::class, "store"]);
 Route::get("/users/{profile}", [ProfileController::class, "show"]);
@@ -24,10 +30,12 @@ Route::put("/users/{profile}", [ProfileController::class, "update"]);
 Route::delete("/users/{profile}", [ProfileController::class, "delete"]);
 
 Route::get("/products", [ProductController::class, "index"]);
-Route::post("/products", [ProductController::class, "store"]);
 Route::get("/products/{product}", [ProductController::class, "show"]);
-Route::put("/products/{product}", [ProductController::class, "update"]);
-Route::delete("/products/{product}", [ProductController::class, "delete"]);
+Route::middleware('auth:sanctum')->group(function(){
+    Route::post("/products", [ProductController::class, "store"]);
+    Route::put("/products/{product}", [ProductController::class, "update"]);
+    Route::delete("/products/{product}", [ProductController::class, "delete"]);
+});
 
 Route::get("/articles", [ArticleController::class, "index"]);
 Route::post("/articles", [ArticleController::class, "store"]);
