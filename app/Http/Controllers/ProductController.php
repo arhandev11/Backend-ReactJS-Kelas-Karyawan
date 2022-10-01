@@ -153,7 +153,6 @@ class ProductController extends Controller
             "is_diskon" => $request->is_diskon,
             "stock" => $request->stock,
             "image_url" => $request->image_url,
-            "user_id" => Auth::user()->id,
         ];
 
 
