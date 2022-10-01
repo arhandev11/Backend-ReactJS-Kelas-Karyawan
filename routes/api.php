@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::post("/login", [AuthController::class, "login"]);
 Route::post("/register", [AuthController::class, "register"]);
 Route::middleware('auth:sanctum')->get("/profile", [AuthController::class, "profile"]);
+Route::middleware('auth:sanctum')->post("/logout", [AuthController::class, "logout"]);
 
 Route::get("/users", [ProfileController::class, "index"]);
 Route::post("/users", [ProfileController::class, "store"]);
@@ -29,12 +30,18 @@ Route::get("/users/{profile}", [ProfileController::class, "show"]);
 Route::put("/users/{profile}", [ProfileController::class, "update"]);
 Route::delete("/users/{profile}", [ProfileController::class, "delete"]);
 
-Route::get("/products", [ProductController::class, "index"]);
+Route::get("/products", [ProductController::class, "indexWithoutUser"]);
 Route::get("/products/{product}", [ProductController::class, "show"]);
+Route::post("/products", [ProductController::class, "storeWithoutUser"]);
+Route::put("/products/{product}", [ProductController::class, "update"]);
+Route::delete("/products/{product}", [ProductController::class, "delete"]);
+
 Route::middleware('auth:sanctum')->group(function(){
-    Route::post("/products", [ProductController::class, "store"]);
-    Route::put("/products/{product}", [ProductController::class, "update"]);
-    Route::delete("/products/{product}", [ProductController::class, "delete"]);
+    Route::get("/quiz/products", [ProductController::class, "index"]);
+    Route::get("/quiz/products/{product}", [ProductController::class, "show"]);
+    Route::post("/quiz/products", [ProductController::class, "store"]);
+    Route::put("/quiz/products/{product}", [ProductController::class, "update"]);
+    Route::delete("/quiz/products/{product}", [ProductController::class, "delete"]);
 });
 
 Route::get("/articles", [ArticleController::class, "index"]);

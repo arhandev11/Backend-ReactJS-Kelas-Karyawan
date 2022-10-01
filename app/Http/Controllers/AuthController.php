@@ -62,6 +62,28 @@ class AuthController extends Controller
         }
     }
 
+    public function logout(Request $request)
+    {
+        $code = "00";
+        $data = [];
+        try{
+            $code = "10";
+            Auth::user()->tokens()->delete();
+
+            return response()->json([
+                "code" => "00",
+                "info" => "Logout Berhasil",
+                "data" => $data
+            ]);
+        }catch(Exception $e){
+            return response()->json([
+                "code" => "-1",
+                "info" => "Logout Gagal",
+                "data" => null
+            ], 500);
+        }
+    }
+
     public function register(Request $request)
     {
         $code = "00";
