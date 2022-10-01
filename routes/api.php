@@ -36,9 +36,9 @@ Route::post("/products", [ProductController::class, "storeWithoutUser"]);
 Route::put("/products/{product}", [ProductController::class, "update"]);
 Route::delete("/products/{product}", [ProductController::class, "delete"]);
 
+Route::get("/quiz/products", [ProductController::class, "index"]);
+Route::get("/quiz/products/{product}", [ProductController::class, "show"]);
 Route::middleware('auth:sanctum')->group(function(){
-    Route::get("/quiz/products", [ProductController::class, "index"]);
-    Route::get("/quiz/products/{product}", [ProductController::class, "show"]);
     Route::post("/quiz/products", [ProductController::class, "store"]);
     Route::put("/quiz/products/{product}", [ProductController::class, "update"]);
     Route::delete("/quiz/products/{product}", [ProductController::class, "delete"]);
