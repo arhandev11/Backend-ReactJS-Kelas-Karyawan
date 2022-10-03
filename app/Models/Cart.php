@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Cart extends Model
 {
     use HasFactory;
 
-    protected $table = "articles";
+    protected $table = "carts";
 
     protected $fillable = [
-        'judul',
-        'konten',
-        'highlight',
-        'image_url',
         'user_id',
+        'product_id',
+        'qty'
     ];
 
     protected $casts = [
@@ -27,5 +25,10 @@ class Article extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 }
