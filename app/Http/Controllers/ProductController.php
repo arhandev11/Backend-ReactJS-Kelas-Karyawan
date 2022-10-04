@@ -81,7 +81,7 @@ class ProductController extends Controller
         $data = [
             "nama" => $request->nama,
             "harga" => $request->harga,
-            "harga_diskon" => $request->harga_diskon ?? null,
+            "harga_diskon" => $request->harga_diskon ?? 0,
             "is_diskon" => $request->is_diskon,
             "stock" => $request->stock,
             "image_url" => $request->image_url,
@@ -149,7 +149,7 @@ class ProductController extends Controller
         $data = [
             "nama" => $request->nama,
             "harga" => $request->harga,
-            "harga_diskon" => $request->harga_diskon ?? null,
+            "harga_diskon" => $request->harga_diskon ?? 0,
             "is_diskon" => $request->is_diskon,
             "stock" => $request->stock,
             "image_url" => $request->image_url,
