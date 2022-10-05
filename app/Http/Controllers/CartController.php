@@ -16,12 +16,22 @@ class CartController extends Controller
     public function index()
     {
         try{
+            $data = [];
             $userId = Auth::user()->id;
             $carts = Cart::where('user_id', $userId)->with('product')->latest()->get();
+
+            $total = 0;
+            foreach($carts as $key => $cart){
+                $total += $cart->product->is_diskon ?$cart->product->harga_diskon : $cart->product->harga; 
+            }
+
+            $data['carts'] = $carts;            
+            $data['total'] = number_format($total, 0, ",", ".");
+            
             return response()->json([
                 "code" => "00",
                 "info" => "Mengambil list keranjang berhasil",
-                "data" => $carts
+                "data" => $data
             ]);
         }catch(Exception $e){
             return response()->json([
@@ -104,6 +114,9 @@ class CartController extends Controller
 
      public function delete(Request $request, Cart $cart)
     {
+        $product = Product::where('id', $cart->product_id)->first();
+        $product->stock += 1;
+        $product->save();
         $check = $cart->delete();
 
         if($check){

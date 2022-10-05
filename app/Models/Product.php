@@ -15,6 +15,7 @@ class Product extends Model
         'harga',
         'harga_diskon',
         'is_diskon',
+        'description',
         'image_url',
         'stock',
         'user_id',

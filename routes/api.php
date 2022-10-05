@@ -64,9 +64,11 @@ Route::delete("/articles/{article}", [ArticleController::class, "delete"]);
 Route::prefix('/final')->group(function () {
     Route::post("/login", [AuthController::class, "login"]);
     Route::post("/register", [AuthController::class, "register"]);
+    Route::middleware('auth:sanctum')->post("/logout", [AuthController::class, "logout"]);
 
     Route::prefix('/products')->group(function(){
         Route::get("/", [ProductController::class, "index"]);
+        Route::get("/home", [ProductController::class, "home"]);
         Route::get("/{product}", [ProductController::class, "show"]);
         Route::middleware('auth:sanctum')->group(function(){
             Route::post("/", [ProductController::class, "store"]);

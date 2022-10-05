@@ -28,6 +28,24 @@ class ProductController extends Controller
         }
     }
 
+    public function home()
+    {
+        try{
+            $users = Product::whereNotNull('user_id')->with('user')->latest()->get()->take(4);
+            return response()->json([
+                "code" => "00",
+                "info" => "Mengambil list product berhasil",
+                "data" => $users
+            ]);
+        }catch(Exception $e){
+            return response()->json([
+                "code" => "-1",
+                "info" => "Mengambil list prodcuct gagal",
+                "data" => null
+            ], 500);
+        }
+    }
+
     public function indexWithoutUser()
     {
         try{
@@ -56,6 +74,7 @@ class ProductController extends Controller
             "harga_diskon" => "nullable|required_if:is_diskon,true|numeric|lt:harga",
             "stock" => "required|numeric",
             "image_url" => "required|url",
+            "description" => "nullable|string",
         ];
 
         $messages = [
@@ -85,6 +104,7 @@ class ProductController extends Controller
             "is_diskon" => $request->is_diskon,
             "stock" => $request->stock,
             "image_url" => $request->image_url,
+            "description" => $request->description,
             "user_id" => Auth::user()->id,
         ];
 
@@ -125,6 +145,7 @@ class ProductController extends Controller
             "harga_diskon" => "nullable|required_if:is_diskon,true|numeric|lt:harga",
             "stock" => "required|numeric",
             "image_url" => "required|url",
+            "description" => "nullable|string",
         ];
 
         $messages = [
@@ -153,6 +174,7 @@ class ProductController extends Controller
             "is_diskon" => $request->is_diskon,
             "stock" => $request->stock,
             "image_url" => $request->image_url,
+            "description" => $request->description,
         ];
 
 
@@ -182,6 +204,7 @@ class ProductController extends Controller
             "harga_diskon" => "nullable|required_if:is_diskon,true|numeric|lt:harga",
             "stock" => "required|numeric",
             "image_url" => "required|url",
+            "description" => "nullable|string",
         ];
 
         $messages = [
@@ -211,6 +234,7 @@ class ProductController extends Controller
             "is_diskon" => $request->is_diskon,
             "stock" => $request->stock,
             "image_url" => $request->image_url,
+            "description" => $request->description,
         ];
 
         $user = Product::create($data);

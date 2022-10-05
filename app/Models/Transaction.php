@@ -24,6 +24,9 @@ class Transaction extends Model
         'updated_at' => 'datetime:Y-m-d H:m:s',
     ];
 
+    protected $appends = ['total_display'];
+
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
@@ -32,5 +35,10 @@ class Transaction extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class, 'transaction_has_products', 'transaction_id', 'product_id', 'id', 'id')->withPivot('qty')->withTrashed();
+    }
+
+    public function getTotalDisplayAttribute()
+    {
+        return number_format($this->total, 0, ",", ".");
     }
 }
