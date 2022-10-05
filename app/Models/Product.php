@@ -37,6 +37,11 @@ class Product extends Model
     {
         return number_format($this->harga_diskon, 0, ",", ".");
     }
+
+    public function getIsDiskonDisplayAttribute($value)
+    {
+        return $value ? 1 : 0;
+    }
     
     public function user()
     {

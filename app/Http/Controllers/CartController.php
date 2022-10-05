@@ -22,7 +22,7 @@ class CartController extends Controller
 
             $total = 0;
             foreach($carts as $key => $cart){
-                $total += $cart->product->is_diskon ?$cart->product->harga_diskon : $cart->product->harga; 
+                $total += $cart->product->is_diskon ? $cart->product->harga_diskon : $cart->product->harga; 
             }
 
             $data['carts'] = $carts;            
