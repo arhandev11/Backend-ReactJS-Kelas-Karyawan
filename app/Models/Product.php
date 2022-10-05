@@ -38,9 +38,9 @@ class Product extends Model
         return number_format($this->harga_diskon, 0, ",", ".");
     }
 
-    public function getIsDiskonDisplayAttribute($value)
+    public function getIsDiskonAttribute($value)
     {
-        return $value ? 1 : 0;
+        return $value == "1" ? 1 : 0;
     }
     
     public function user()
