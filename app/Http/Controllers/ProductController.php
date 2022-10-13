@@ -255,7 +255,7 @@ class ProductController extends Controller
             "harga_diskon" => "nullable|required_if:is_diskon,true|numeric|lt:harga",
             "stock" => "required|numeric",
             "image_url" => "required|url",
-            "category" => "required|string|in:teknologi,makanan,minuman,kesehatan,lainnya",
+            "category" => "nullable|string|in:teknologi,makanan,minuman,kesehatan,lainnya",
             "description" => "nullable|string",
         ];
 
@@ -286,8 +286,8 @@ class ProductController extends Controller
             "is_diskon" => $request->is_diskon,
             "stock" => $request->stock,
             "image_url" => $request->image_url,
-            "category" => $request->category,
-            "description" => $request->description,
+            "category" => $request->category ?? null,
+            "description" => $request->description ?? null,
         ];
 
 
