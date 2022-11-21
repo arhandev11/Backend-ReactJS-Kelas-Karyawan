@@ -31,17 +31,18 @@ class ArticleController extends Controller
 
     public function indexWithoutUser()
     {
+        sleep(1);
         try{
             $articles = Article::whereNull('user_id')->latest()->get();
             return response()->json([
                 "code" => "00",
-                "info" => "Mengambil list product berhasil",
+                "info" => "Mengambil list Artikel berhasil",
                 "data" => $articles
             ]);
         }catch(Exception $e){
             return response()->json([
                 "code" => "-1",
-                "info" => "Mengambil list prodcuct gagal",
+                "info" => "Mengambil list Artikel gagal",
                 "data" => null
             ], 500);
         }
@@ -92,6 +93,7 @@ class ArticleController extends Controller
 
     public function storeWithoutUser(Request $request)
     {
+        sleep(1);
         $rules = [
             "judul" => "required",
             "konten" => "required",
@@ -133,6 +135,7 @@ class ArticleController extends Controller
 
     public function show(Request $request, Article $article)
     {
+        sleep(1);
 
         return response()->json([
             "code" => "00",
@@ -144,6 +147,8 @@ class ArticleController extends Controller
     }
     public function update(Request $request, Article $article)
     {
+        sleep(1);
+
         $rules = [
             "judul" => "required",
             "konten" => "required",
@@ -190,6 +195,8 @@ class ArticleController extends Controller
     }
     public function delete(Request $request, Article $article)
     {
+        sleep(1);
+
         $check = $article->delete();
 
         if($check){
